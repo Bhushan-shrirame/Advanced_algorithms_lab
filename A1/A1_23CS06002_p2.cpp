@@ -24,22 +24,28 @@ class Solution{
 
         // Adding the points
         for(int i =1;i<bar.size();i++){
-            if(bar[i-1] < bar[i]){
-                ans.push_back({i ,bar[i]});
+            if(bar[i] == 0){
+                ans.push_back({i-1 ,bar[i]});
             }
-            else if(bar[i] == 0){
-                ans.push_back({i-1,bar[i-1]});
+            else if(bar[i-1] < bar[i]){
+                ans.push_back({i,bar[i]});
             }
             else{
                 ans.push_back({i-1,bar[i]});
             }
         }
-
-        for(int i=0;i<bar.size();i++){
-            cout << bar[i] << " ";
+        ans.push_back({0,0});
+        
+        // // For printing the array
+        // for(int i=0;i<bar.size();i++){
+        //     cout << bar[i] << " ";
+        // }
+        for(int i=0;i<ans.size()-1;i++){
+            // if(ans[i][1] == ans[i+1][1]) continue;
+            cout << "< " << ans[i][0] << "," << ans[i][1] << " > ";
+            cout<<endl;  
         }
-
-        return rectangle;
+        return ans;
 
     }
 };
