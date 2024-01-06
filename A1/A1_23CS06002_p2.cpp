@@ -23,9 +23,15 @@ class Solution{
         }
 
         // Adding the points
-        for(int i =0;i<bar.size();i++){
-            if(bar[i-1] < bar[i] || bar[i] == 0){
+        for(int i =1;i<bar.size();i++){
+            if(bar[i-1] < bar[i]){
                 ans.push_back({i ,bar[i]});
+            }
+            else if(bar[i] == 0){
+                ans.push_back({i-1,bar[i-1]});
+            }
+            else{
+                ans.push_back({i-1,bar[i]});
             }
         }
 
