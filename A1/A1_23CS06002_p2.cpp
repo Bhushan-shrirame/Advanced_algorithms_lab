@@ -5,7 +5,17 @@ class Solution{
     public:
     vector<vector<int>> markboundary(vector<vector<int>>& rectangle ){
         int rsize = rectangle.size();
-        vector<int> bar(25, 0);
+        int arrsize = INT_MIN;
+        for(int i=0;i<rsize;i++){
+            for(int j=0;j<2;j++){
+                if(arrsize < rectangle[i][j]) arrsize = rectangle[i][j];
+            }
+        }
+        arrsize++;
+        arrsize++;
+        cout << arrsize <<endl;
+        vector<int> bar(arrsize, 0);
+        // vector<int> bar(100, 0);
         vector<vector<int>>ans;
 
         // To create the array with points
@@ -40,11 +50,9 @@ class Solution{
                 flag = true;
             }
         }
-        ans.push_back({0,0});
-        
+        ans.push_back({0,0});  
 
         for(int i=0;i<ans.size()-1;i++){
-            // if(ans[i][1] == ans[i+1][1]) continue;
             cout << "< " << ans[i][0] << "," << ans[i][1] << " > ";
             cout<<endl;  
         }
