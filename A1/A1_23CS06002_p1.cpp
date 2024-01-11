@@ -16,34 +16,35 @@ class Solution{
     	return sqrt(pow(a.X - b.X, 2) + pow(a.Y - b.Y, 2));
     }
     
-    bool is_inside(const Circle& c, const Point& p){
+    bool IsInside(const Circle& c, const Point& p){
     	return Euclideandistance(c.C, p) <= c.R;
     }
     
-    Point get_circle_center(double bx, double by, double cx, double cy) {
+    Point getCircleCenter(double bx, double by, double cx, double cy) {
     	double B = bx * bx + by * by;
     	double C = cx * cx + cy * cy;
     	double D = bx * cy - by * cx;
     	return { (cy * B - by * C) / (2 * D), (bx * C - cx * B) / (2 * D) };
     }
     
-    Circle circle_from(const Point& A, const Point& B,const Point& C){
-    	Point I = get_circle_center(B.X - A.X, B.Y - A.Y, C.X - A.X, C.Y - A.Y);
+    Circle circle_from_three_points(const Point& A, const Point& B,const Point& C){
+    	Point I = getCircleCenter(B.X - A.X, B.Y - A.Y, C.X - A.X, C.Y - A.Y);
     	I.X += A.X;
     	I.Y += A.Y;
     	return { I, Euclideandistance(I, A) };
     }
     
-    Circle circle_from(const Point& A, const Point& B){
+    Circle circle_from_two_points(const Point& A, const Point& B){
     	Point C = { (A.X + B.X) / 2.0, (A.Y + B.Y) / 2.0 };
     	return { C, Euclideandistance(A, B) / 2.0 };
     }
     
-    bool is_valid_circle(const Circle& c, const vector<Point>& P){
-    	for (const Point& p : P) if (!is_inside(c, p)) return false;
+    bool validCircle(const Circle& c, const vector<Point>& P){
+    	for (const Point& p : P) if (!IsInside(c, p)) return false;
     	return true;
     }
-    
+
+    // main solving function
     Circle minimum_enclosing_circle(const vector<Point>& P){
     
     	int n = (int)P.size();
@@ -54,16 +55,16 @@ class Solution{
     
     	for (int i = 0; i < n; i++) {
     		for (int j = i + 1; j < n; j++) {
-    			Circle tmp = circle_from(P[i], P[j]);
-    			if (tmp.R < mec.R && is_valid_circle(tmp, P)) mec = tmp;
+    			Circle tmp = circle_from_two_points(P[i], P[j]);
+    			if (tmp.R < mec.R && validCircle(tmp, P)) mec = tmp;
     		}
     	}
     
     	for (int i = 0; i < n; i++) {
     		for (int j = i + 1; j < n; j++) {
     			for (int k = j + 1; k < n; k++) {
-    				Circle tmp = circle_from(P[i], P[j], P[k]);
-    				if (tmp.R < mec.R && is_valid_circle(tmp, P)) mec = tmp;
+    				Circle tmp = circle_from_three_points(P[i], P[j], P[k]);
+    				if (tmp.R < mec.R && validCircle(tmp, P)) mec = tmp;
     			}
     		}
     	}
@@ -79,13 +80,13 @@ int main(){
     int n;
     cout << "Enter number of points: " <<endl;
     cin>>n;
-    vector<Point>P;
+    vector<Point>Points;
     for(int i=0;i<n;i++){
         double a,b;
         cin >> a >>b;
-        P.push_back({a,b});
+        Points.push_back({a,b});
     }
-	Circle res = sol.minimum_enclosing_circle(P);
-	cout << "Center = { " << res.C.X << ", " << res.C.Y << " } Radius = " << res.R << endl;
+	Circle result = sol.minimum_enclosing_circle(Points);
+	cout << "Center = { " << result.C.X << ", " << result.C.Y << " } Radius = " << result.R << endl;
 	return 0;
 }
