@@ -3,8 +3,6 @@ using namespace std;
 
 class Solution{
     public:
-
-    //Link List structure
     struct ListNode {
         int val;
         ListNode *next;
@@ -14,28 +12,26 @@ class Solution{
     };
     ListNode* head = new ListNode();
 
-    // solutions;
-
-    ListNode* reverseit(ListNode* root, int k){
-        ListNode * current = root;
-        ListNode* prev = nullptr;
-        while(k){
-            current = root;
-            root = root->next;
-            current->next = prev;
-            prev =current;
+    ListNode* reversekelement(ListNode* head, int k){
+        ListNode* temp=head;
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* next=NULL;
+        int n=0;
+        while(temp!=0) n++,temp=temp->next;
+        if(n<k)return head;
+        int count=0;
+        while(curr!=0 && count<k){
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+            count++;
         }
-        return current->next;
+        if(curr!=NULL)head->next=reversekelement(curr,k);
+        return prev;
     }
-    void reversekelement(ListNode* head, int k){
 
-        ListNode* temp = head;
-        while(temp) temp = reverseit(temp,k);
-        temp = head;
-
-        printlinklist(head);
-
-    }
     void removedublicate(ListNode* head){
         ListNode* temp = head;
         while(temp->next && temp->next->next){
@@ -52,25 +48,23 @@ class Solution{
         ListNode* temp = head;
         sort(arr.begin(),arr.end());
         head->val = arr[0];
-
         for(int i=1;i<arr.size();i++){
             temp->next = new ListNode(arr[i]);
             temp = temp->next;
         }
         printlinklist(head);
-       
         removedublicate(head);
-        reversekelement(head , k);
+        ListNode* some = reversekelement(head , k);
+        printlinklist(some);
     }
+
     void printlinklist(ListNode* head){
         ListNode* temp = head;
-        // printing the value;
         while(temp){
             cout << temp->val << " " ;
             temp = temp->next;
         }
         cout << endl;
-
     }
 };
 
