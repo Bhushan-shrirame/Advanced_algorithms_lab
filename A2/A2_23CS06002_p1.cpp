@@ -12,9 +12,10 @@ class Solution{
         ListNode(int x) : val(x), next(nullptr) {}
         ListNode(int x, ListNode *next) : val(x), next(next) {}
     };
-    ListNode* head;
+    ListNode* head = new ListNode();
 
     // solutions;
+
     ListNode* reverseit(ListNode* root, int k){
         ListNode * current = root;
         ListNode* prev = nullptr;
@@ -29,64 +30,57 @@ class Solution{
     void reversekelement(ListNode* head, int k){
 
         ListNode* temp = head;
-        while(!temp) temp = reverseit(temp,k);
+        while(temp) temp = reverseit(temp,k);
         temp = head;
 
-        // printing the value;
-        while(!temp->next){
-            cout << temp->val << " " ;
-            temp = temp->next;
-        }
+        printlinklist(head);
 
     }
     void removedublicate(ListNode* head){
         ListNode* temp = head;
-        while(!temp->next && !temp->next->next){
-            if(temp->next->val == temp->val) temp->next = temp->next->next;
-            temp->next;
-        }
-
-        // printing the value;
-        while(!temp->next){
-            cout << temp->val << " " ;
+        while(temp->next && temp->next->next){
+            if(temp->next->val == temp->val) {
+                temp->next = temp->next->next;
+                continue;
+            }
             temp = temp->next;
         }
+         printlinklist(head);
     }
+
     void insertintolinklist(vector<int>&arr, int k){
         ListNode* temp = head;
+        sort(arr.begin(),arr.end());
         head->val = arr[0];
-        int n = arr.size();
-        for(int i=1;i<n;i++){
-            if(temp->val < arr[i]){
-                temp->next->val = arr[i];
-            }
-            else if (temp->val > arr[i]){
-                // prev condition;
-            }
-            else{
-                //something
-            }
-            
-        }
 
+        for(int i=1;i<arr.size();i++){
+            temp->next = new ListNode(arr[i]);
+            temp = temp->next;
+        }
+        printlinklist(head);
+       
+        removedublicate(head);
+        reversekelement(head , k);
+    }
+    void printlinklist(ListNode* head){
+        ListNode* temp = head;
         // printing the value;
-        while(!temp->next){
+        while(temp){
             cout << temp->val << " " ;
             temp = temp->next;
         }
-        removedublicate(head);
-        reversekelement(head , k);
+        cout << endl;
+
     }
 };
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
     Solution sol;
-
     int n , k;
-    cin >> n >> k;
+    cout << "Enter number of element in the array: ";
+    cin >> n;
+    cout << "Enter K: ";
+    cin >> k;
     vector<int> arr;
     for(int i=0;i<n;i++){
         int temp;
