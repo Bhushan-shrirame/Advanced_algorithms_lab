@@ -45,6 +45,7 @@ int main(){
     cout << "Enter no. of edge ";
     cin >> e;
     vector<vector<int>>edges;
+    vector<int>res;
     for(int i=0;i<e;i++){
         vector<int>temp;
         for(int j=0;j<2;j++){
@@ -54,6 +55,8 @@ int main(){
         }
         edges.push_back(temp);
     }
-    sol.findMinHeightTrees(n,edges);
+    res = sol.findMinHeightTrees(n,edges);
+    for(int i=0;i<res.size();i++) cout << res[i] << " ";
+    cout<<endl;
     return 0;
 }
