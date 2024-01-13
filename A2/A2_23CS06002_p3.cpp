@@ -9,7 +9,6 @@ public:
         vector<int>degree(n,0);
         for(int i=0;i<edges.size();i++){
             int a=edges[i][0], b=edges[i][1];
-            
             graph[a].push_back(b);
             graph[b].push_back(a);
             degree[a]++;
