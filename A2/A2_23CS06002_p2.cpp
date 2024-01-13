@@ -5,7 +5,6 @@ class Solution{
     public:
     int countstringwithvowel(int n){
         n++;
-        cout << (n+3)*(n+2)*(n+1)*n/24 << endl;
 		return (n+3)*(n+2)*(n+1)*n/24;
     }
 };
@@ -15,8 +14,9 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     Solution sol;
-    int n;
+    int n ,res;
     cin >> n;
-    sol.countstringwithvowel(n);
+    int res = sol.countstringwithvowel(n);
+    cout << res << endl;
     return 0;
 }
