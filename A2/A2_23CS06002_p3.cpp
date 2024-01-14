@@ -19,7 +19,6 @@ public:
         vector<int>res;
         while(!queue_degree_1.empty()){
             int n = queue_degree_1.size();
-            res.clear();
             while(n--){
                 int node = queue_degree_1.front();
                 queue_degree_1.pop();
