@@ -1,49 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-class Solution{
-	public:
-    unordered_set<string> seen;
-    vector<int> edges;
-    void dfs(string node, int& k, string& A)
-    {
-    	for (int i = 0; i < k; ++i) {
-    		string str = node + A[i];
-    		if (seen.find(str) == seen.end()) {
-    			seen.insert(str);
-    			dfs(str.substr(1), k, A);
-    			edges.push_back(i);
-    		}
-    	}
+class Solution {
+public:
+    bool dfs(int n, int k, string& ans, 
+        unordered_set<string>& visited) {
+        if(visited.size() == pow(k, n)) return true;
+        string suffix = ans.substr(ans.size() - (n-1), n-1);
+        string nextNode = suffix + '0';
+        for(int i = 0; i < k; i++) {
+            nextNode[n-1] = (i + '0');
+            if(!visited.count(nextNode)) {
+                visited.insert(nextNode);
+                ans += (i + '0');
+                if(dfs(n, k, ans, visited)) return true;
+                visited.erase(nextNode);
+                ans.pop_back();
+            }
+        }
+        return false;
     }
-
-    string deBruijn(int n, int k, string A)
-    {
-    	seen.clear();
-    	edges.clear();
-    	string startingNode = string(n - 1, A[0]);
-    	dfs(startingNode, k, A);
-    	string S;
-    	int l = pow(k, n);
-    	for (int i = 0; i < l; ++i) S += A[edges[i]];
-    	S += startingNode;
-        cout << S <<endl;
-    
-    	return S;
+    string deBruijn(int n, int k) {
+        unordered_set<string> visited;
+        string ans = string(n, '0');
+        visited.insert(ans);
+        dfs(n, k, ans, visited);
+        return ans;
     }
-
 };
-
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
-
     Solution sol;
     int n,k;
     cin >> n >> k;
-    string A = "01";
-    sol.deBruijn(n,k,A);
-
+    string A = sol.deBruijn(n,k);
+    cout << A << endl;
     return 0;
 }
