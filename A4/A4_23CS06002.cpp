@@ -3,7 +3,10 @@ using namespace std;
 
 class Solution{
 public:
+    // this vector will store the graph and the first bool value will store if is is used or not;
     vector<pair<bool,pair<int,int>>> graph;
+
+    //to check whether all the neighbour is used or not
     bool all_neighbour_used(int q,int p){
         for(auto i:graph){
             if(i.second.first == p && i.first == false){
@@ -12,6 +15,8 @@ public:
         }
         return true;
     }
+
+    //to check if their is some neighbour where (q != father[p]) or (!used[p][q])
     int some_neighbour_not_used(int q, int p ,vector<int>father){
         int x;
         for(auto i:graph){
@@ -23,9 +28,13 @@ public:
         }
         return x;
     }
+    
+
+    // solver function
     void Solver(vector<pair<int ,int>> grp ){
         vector<int>father(6 ,-1);
         int p,q0,q;
+        //updating the graph
         int j=0;
         for(auto i:grp){
             graph[j].second.first = i.first;
@@ -33,6 +42,10 @@ public:
             graph[j].first = false;
             j++;
         }
+
+        // Starting algorithm
+
+        // initializing the initiator
         p = graph[0].second.first;
         cout<< "initiator"<<p << "\n";
         father[p] = p;
@@ -40,6 +53,8 @@ public:
         p = graph[0].second.second;
         graph[0].first = true;
         q0=q;
+
+        // wheather the channel p->q has been used;
         while(p){
             if(father[p] == -1) father[p] = q0;
             if(all_neighbour_used(q ,p)){
@@ -59,15 +74,17 @@ public:
 
         print(father);
     }
+
+    // printing father and son;
     void print(vector<int>father){
         for(int i=0;i<father.size();i++)cout << "Father" << father[i] << "son" << i << "\n";
     }
 };
 
 int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
+    // ios_base::sync_with_stdio(false);
+	// cin.tie(0);
+	// cout.tie(0);
     Solution st;
     int nodes ,edges;
     // cin >> n;
