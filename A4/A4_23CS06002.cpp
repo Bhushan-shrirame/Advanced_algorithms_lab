@@ -30,11 +30,9 @@ public:
             j++;
         }
 
-        // starting algorithm
+        // Starting algorithm
 
-        //this will run one time so no need for loop;
         // initializing the initiator
-
         int p = graph[0].second.first;
         cout<< "initiator"<<p << "\n";
         father[p] = p;
@@ -52,11 +50,12 @@ public:
             else if(some_neighbour_not_used(q,p,father)){
                 if((father[p] !=q) ) q = q0;   
                 else q = some_neighbour_not_used(q,p,father);
-                for(auto i: graph)if(i.second.first == p && i.second.second == q) i.first = true; 
+                for(auto i: graph)if(i.second.first == p && i.second.second == q) i.first = true;
+                // father[p] = q; 
             }
-            // todo used[p][q] = true;
             else {
-                for(auto i: graph) if(i.second.first == p && i.second.second == father[p]) i.first = true; 
+                for(auto i: graph) if(i.second.first == p && i.second.second == father[p]) i.first = true;
+                // father[p] = father[p];
             }
         }
 
@@ -70,10 +69,15 @@ public:
 };
 
 int main(){
+    // ios_base::sync_with_stdio(false);
+	// cin.tie(0);
+	// cout.tie(0);
     Solution st;
+    int n;
     // cin >> n;
+    n=6;
     vector<pair<int ,int>> grp(0);
-    for(int i=0;i<6;i++){
+    for(int i=0;i<n;i++){
         int a ,b;
         cin >> a >> b;
         grp.push_back({a,b});
