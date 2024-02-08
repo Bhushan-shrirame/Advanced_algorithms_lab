@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// no. of nodes
-extern int global;
-
 class Solution{
 public:
     // this vector will store the graph and the first bool value will store if is is used or not;
@@ -16,7 +13,7 @@ public:
     }
 
     //to check if their is some neighbour where (q != father[p]) or (!used[p][q])
-    int some_neighbour_not_used(int q, int p){
+    int some_neighbour_not_used(int q, int p ,vector<int>father){
         //TODO
     }
 
@@ -41,7 +38,6 @@ public:
         int p = graph[0].second.first;
         cout<< "initiator"<<p << "\n";
         father[p] = p;
-        cout << "Father" << p << "son " << p << "\n";
         q = p;
         int p = graph[0].second.second;
         graph[0].first = true;
@@ -53,28 +49,31 @@ public:
             if(all_neighbour_used(q)){
                 break;
             }
-            else if(some_neighbour_not_used(q,p)){
+            else if(some_neighbour_not_used(q,p,father)){
                 if((father[p] !=q) ) q = q0;   
-                else q = some_neighbour_not_used(q,p);
+                else q = some_neighbour_not_used(q,p,father);
+                for(auto i: graph)if(i.second.first == p && i.second.second == q) i.first = true; 
             }
             // todo used[p][q] = true;
             else {
-            //used[p]
-            // for(auto i: graph){   
-            // }
-        }
+                for(auto i: graph) if(i.second.first == p && i.second.second == father[p]) i.first = true; 
+            }
         }
 
+        print(father);
+    }
 
+    // printing father and son;
+    void print(vector<int>father){
+        for(int i=0;i<father.size();i++)cout << "Father" << father[i] << "son" << i << "\n";
     }
 };
 
 int main(){
     Solution st;
-    cin >> global;
-    
+    // cin >> n;
     vector<pair<int ,int>> grp(0);
-    for(int i=0;i<global;i++){
+    for(int i=0;i<6;i++){
         int a ,b;
         cin >> a >> b;
         grp.push_back({a,b});
