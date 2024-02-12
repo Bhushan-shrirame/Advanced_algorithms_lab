@@ -8,7 +8,8 @@ public:
         while(l<r){
             lmax=max(lmax,h[l]);
             rmax=max(rmax,h[r]);
-            ans+=(lmax<rmax)?lmax-h[l++]:rmax-h[r--];
+            if(lmax < rmax)ans+= lmax -h[l++];
+            else ans+= rmax-h[r--];
         }
         return ans;
     }
