@@ -8,13 +8,12 @@ public:
         temp.push_back(nums[0]);
         int l = 1; 
         for(int i=1;i<nums.size();i++){
-            if(temp.back() < nums[i]) temp.push_back(nums[i]) ,l++;
+            if(temp.back() <= nums[i]) temp.push_back(nums[i]) ,l++;
             else{
                 int ind = lower_bound(temp.begin(),temp.end(),nums[i]) - temp.begin();
                 temp[ind] = nums[i];
             }
         }
-        // return l;
         cout << "Result: " << l << endl;
         for(auto i:temp) cout << i  << " ";
         cout << endl;
@@ -22,9 +21,9 @@ public:
 };
 
 int main(){
-    // ios_base::sync_with_stdio(false);
-	// cin.tie(0);
-	// cout.tie(0);
+    ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
     Solution st;
     int n;
     cin >> n;
