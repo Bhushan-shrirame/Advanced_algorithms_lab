@@ -37,12 +37,9 @@ int main(){
     Solution st;
     vector<int> weights;
     int days;
-    cout <<  "enter the days: ";
     cin >> days;
     int n;
-    cout << "enter size of weights";
     cin >> n;
-    cout << "enter array: ";
     for(int i=0;i<n;i++){
         int a;
         cin >> a;
