@@ -28,7 +28,6 @@ public:
             int h = ans;
             while(l<h){
                 int m = l +(h-l)/2;
-
                 if(dp[m] < arr[i].second) l = m + 1;
                 else h = m;
             }
